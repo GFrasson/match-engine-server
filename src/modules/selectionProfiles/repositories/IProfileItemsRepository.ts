@@ -1,8 +1,8 @@
-import { ICreateProfileItem } from "../dtos/ICreateProfileItem";
+import { ICreateProfileItemDTO } from "../dtos/ICreateProfileItemDTO";
 import { ProfileItem } from "../infra/typeorm/entities/ProfileItem";
 
 interface IProfileItemsRepository {
-    create(data: ICreateProfileItem): Promise<ProfileItem>;
+    create(data: ICreateProfileItemDTO): Promise<ProfileItem>;
 }
 
 export { IProfileItemsRepository };
