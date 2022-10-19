@@ -1,5 +1,10 @@
-import "dotenv/config";
 import { DataSource, DatabaseType } from "typeorm";
+
+import { Bull } from "@modules/bulls/infra/typeorm/entities/Bull";
+
+import "dotenv/config";
+
+import { CreateBulls1666212336611 } from "./migrations/1666212336611-CreateBulls";
 
 const dbType: DatabaseType = "mysql";
 
@@ -12,8 +17,8 @@ const AppDataSource = new DataSource({
     port: Number(process.env.TYPEORM_PORT),
     synchronize: false,
     logging: false,
-    entities: [],
-    migrations: [],
+    entities: [Bull],
+    migrations: [CreateBulls1666212336611],
 });
 
 export function createConnection(): Promise<DataSource> {
