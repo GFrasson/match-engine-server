@@ -13,8 +13,7 @@ const AppDataSource = new DataSource({
     synchronize: false,
     logging: false,
     entities: [],
-    migrations: [
-    ],
+    migrations: [],
 });
 
 export function createConnection(): Promise<DataSource> {
