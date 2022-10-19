@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 @Entity("bulls")
@@ -16,28 +16,46 @@ class Bull {
     gender: string;
 
     @Column()
-    ptal: number;
+    ptal?: number;
 
     @Column()
-    ptat: number;
+    ptat?: number;
 
     @Column()
-    udder_index: number;
+    udder_index?: number;
 
     @Column()
-    conformation_index: number;
+    conformation_index?: number;
 
     @Column()
-    dpr: number;
+    dpr?: number;
 
     @Column()
-    productive_life: number;
+    productive_life?: number;
 
     @Column()
-    legs_composition: number;
+    legs_composition?: number;
 
     @Column()
     beta_casein: boolean;
+
+    @Column()
+    first_level_parent_id?: string;
+
+    @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    first_level_parent?: Bull;
+
+    @Column()
+    second_level_parent_id?: string;
+
+    @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    second_level_parent?: Bull;
+
+    @Column()
+    third_level_parent_id?: string;
+
+    @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    third_level_parent?: Bull;
 
     constructor() {
         if (!this.id) {
