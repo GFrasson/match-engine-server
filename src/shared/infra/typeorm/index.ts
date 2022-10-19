@@ -4,7 +4,10 @@ import { Bull } from "@modules/bulls/infra/typeorm/entities/Bull";
 
 import "dotenv/config";
 
+import { FormItem } from "@modules/forms/infra/typeorm/entities/FormItem";
+
 import { CreateBulls1666212336611 } from "./migrations/1666212336611-CreateBulls";
+import { CreateFormItems1666213532115 } from "./migrations/1666213532115-CreateFormItems";
 
 const dbType: DatabaseType = "mysql";
 
@@ -17,8 +20,8 @@ const AppDataSource = new DataSource({
     port: Number(process.env.TYPEORM_PORT),
     synchronize: false,
     logging: false,
-    entities: [Bull],
-    migrations: [CreateBulls1666212336611],
+    entities: [Bull, FormItem],
+    migrations: [CreateBulls1666212336611, CreateFormItems1666213532115],
 });
 
 export function createConnection(): Promise<DataSource> {
