@@ -10,9 +10,9 @@ interface ICreateBullDTO {
     // dpr?: number;
     // productive_life?: number;
     // legs_composition?: number;
-    first_level_parent_id?: string;
-    second_level_parent_id?: string;
-    third_level_parent_id?: string;
+    first_level_parent?: string;
+    second_level_parent?: string;
+    third_level_parent?: string;
 }
 
 export { ICreateBullDTO };

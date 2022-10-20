@@ -75,9 +75,9 @@ class MatchingUseCase {
 
         const matchingBullsCheckConsanguinity = matchingBulls.filter((bull) => {
             const bullParentsNames = [
-                bull.first_level_parent?.name.toLowerCase(),
-                bull.second_level_parent?.name.toLowerCase(),
-                bull.third_level_parent?.name.toLowerCase(),
+                bull.first_level_parent.toLowerCase(),
+                bull.second_level_parent.toLowerCase(),
+                bull.third_level_parent.toLowerCase(),
             ];
 
             console.log(bullParentsNames);

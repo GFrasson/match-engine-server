@@ -17,22 +17,22 @@ class BullsRepository implements IBullsRepository {
         register_id,
         name,
         gender,
-        first_level_parent_id,
-        second_level_parent_id,
-        third_level_parent_id,
+        first_level_parent,
+        second_level_parent,
+        third_level_parent,
     }: ICreateBullDTO): Promise<Bull> {
         const bull = this.repository.create({
             register_id,
             name,
             gender,
-            ...(first_level_parent_id && {
-                first_level_parent_id,
+            ...(first_level_parent && {
+                first_level_parent,
             }),
-            ...(second_level_parent_id && {
-                second_level_parent_id,
+            ...(second_level_parent && {
+                second_level_parent,
             }),
-            ...(third_level_parent_id && {
-                third_level_parent_id,
+            ...(third_level_parent && {
+                third_level_parent,
             }),
         });
 

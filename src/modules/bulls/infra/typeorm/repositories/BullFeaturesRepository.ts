@@ -1,12 +1,4 @@
-import {
-    Repository,
-    LessThan,
-    LessThanOrEqual,
-    Not,
-    Equal,
-    MoreThan,
-    MoreThanOrEqual,
-} from "typeorm";
+import { Repository, LessThan, LessThanOrEqual, Equal, MoreThan, MoreThanOrEqual } from "typeorm";
 
 import { ICreateBullFeatureDTO } from "@modules/bulls/dtos/ICreateBullFeatureDTO";
 import { IBullFeaturesRepository } from "@modules/bulls/repositories/IBullFeaturesRepository";

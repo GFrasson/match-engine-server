@@ -21,25 +21,25 @@ class Bull {
     bull_features: BullFeature[];
 
     @Column()
-    first_level_parent_id?: string;
+    first_level_parent?: string;
 
-    @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
-    @JoinColumn({ name: "first_level_parent_id" })
-    first_level_parent?: Bull;
-
-    @Column()
-    second_level_parent_id?: string;
-
-    @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
-    @JoinColumn({ name: "second_level_parent_id" })
-    second_level_parent?: Bull;
+    // @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    // @JoinColumn({ name: "first_level_parent_id" })
+    // first_level_parent?: Bull;
 
     @Column()
-    third_level_parent_id?: string;
+    second_level_parent?: string;
 
-    @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
-    @JoinColumn({ name: "third_level_parent_id" })
-    third_level_parent?: Bull;
+    // @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    // @JoinColumn({ name: "second_level_parent_id" })
+    // second_level_parent?: Bull;
+
+    @Column()
+    third_level_parent?: string;
+
+    // @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    // @JoinColumn({ name: "third_level_parent_id" })
+    // third_level_parent?: Bull;
 
     constructor() {
         if (!this.id) {
