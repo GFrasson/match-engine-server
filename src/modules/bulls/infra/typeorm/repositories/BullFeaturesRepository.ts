@@ -76,6 +76,17 @@ class BullFeaturesRepository implements IBullFeaturesRepository {
 
         return matchingBulls;
     }
+
+    async findByBullId(bull_id: string): Promise<BullFeature[]> {
+        const bullFeatures = await this.repository.find({
+            where: {
+                bull_id,
+            },
+            relations: ["bull", "profile_item"],
+        });
+
+        return bullFeatures;
+    }
 }
 
 export { BullFeaturesRepository };

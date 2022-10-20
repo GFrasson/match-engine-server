@@ -7,6 +7,7 @@ import { BullFeature } from "../infra/typeorm/entities/BullFeature";
 interface IBullFeaturesRepository {
     create(data: ICreateBullFeatureDTO): Promise<BullFeature>;
     matching(forms: Form[]): Promise<Bull[]>;
+    findByBullId(bull_id: string): Promise<BullFeature[]>;
 }
 
 export { IBullFeaturesRepository };
