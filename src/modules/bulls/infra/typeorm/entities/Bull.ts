@@ -1,6 +1,8 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+import { BullFeature } from "./BullFeature";
+
 @Entity("bulls")
 class Bull {
     @PrimaryColumn()
@@ -15,29 +17,8 @@ class Bull {
     @Column()
     gender: string;
 
-    @Column()
-    ptal?: number;
-
-    @Column()
-    ptat?: number;
-
-    @Column()
-    udder_index?: number;
-
-    @Column()
-    conformation_index?: number;
-
-    @Column()
-    dpr?: number;
-
-    @Column()
-    productive_life?: number;
-
-    @Column()
-    legs_composition?: number;
-
-    @Column()
-    beta_casein: boolean;
+    @OneToMany(() => BullFeature, (bullFeature) => bullFeature.bull)
+    bull_features: BullFeature[];
 
     @Column()
     first_level_parent_id?: string;
