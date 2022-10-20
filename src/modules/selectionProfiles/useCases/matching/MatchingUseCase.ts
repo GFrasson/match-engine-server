@@ -2,7 +2,8 @@ import { inject, injectable } from "tsyringe";
 
 import { Bull } from "@modules/bulls/infra/typeorm/entities/Bull";
 import { IBullFeaturesRepository } from "@modules/bulls/repositories/IBullFeaturesRepository";
-import { IBullsRepository } from "@modules/bulls/repositories/IBullsRepository";
+import { Operator } from "@modules/selectionProfiles/infra/typeorm/enums/Operator";
+import { IProfileItemsRepository } from "@modules/selectionProfiles/repositories/IProfileItemsRepository";
 import { ISelectionProfilesRepository } from "@modules/selectionProfiles/repositories/ISelectionProfilesRepository";
 import { AppError } from "@shared/errors/AppError";
 
@@ -18,10 +19,10 @@ class MatchingUseCase {
     constructor(
         @inject("SelectionProfilesRepository")
         private selectionProfilesRepository: ISelectionProfilesRepository,
-        @inject("BullsRepository")
-        private bullsRepository: IBullsRepository,
         @inject("BullFeaturesRepository")
-        private bullFeaturesRepository: IBullFeaturesRepository
+        private bullFeaturesRepository: IBullFeaturesRepository,
+        @inject("ProfileItemsRepository")
+        private profileItemsRepository: IProfileItemsRepository
     ) {}
 
     async execute({
@@ -38,9 +39,77 @@ class MatchingUseCase {
             throw new AppError("Perfil de seleção não encontrado", 404);
         }
 
-        const matchingBulls = await this.bullFeaturesRepository.matching(selectionProfile.forms);
+        const consanguinityProfileItem = await this.profileItemsRepository.findByAttribute(
+            "consanguinity"
+        );
 
-        return matchingBulls;
+        const consanguinityForm = selectionProfile.forms.find(
+            (form) => form.profile_item_id === consanguinityProfileItem.id
+        );
+
+        const matchingBulls = await this.bullFeaturesRepository.matching(
+            selectionProfile.forms.filter(
+                (form) => form.profile_item_id !== consanguinityProfileItem.id
+            )
+        );
+
+        console.log(matchingBulls);
+
+        const operatorsMap = {
+            [Operator.LESS_THAN]: (a: number, b: number) => a < b,
+            [Operator.LESS_THAN_EQUAL]: (a: number, b: number) => a <= b,
+            [Operator.EQUAL]: (a: number, b: number) => a === b,
+            [Operator.GREATER_THAN]: (a: number, b: number) => a > b,
+            [Operator.GREATER_THAN_EQUAL]: (a: number, b: number) => a >= b,
+        };
+
+        const consanguinityOperatorFunction = operatorsMap[consanguinityForm.operator];
+
+        const cowParentsNames = [
+            cow_first_level_parent.toLowerCase(),
+            cow_second_level_parent.toLowerCase(),
+            cow_third_level_parent.toLowerCase(),
+        ];
+
+        console.log(cowParentsNames);
+
+        const matchingBullsCheckConsanguinity = matchingBulls.filter((bull) => {
+            const bullParentsNames = [
+                bull.first_level_parent?.name.toLowerCase(),
+                bull.second_level_parent?.name.toLowerCase(),
+                bull.third_level_parent?.name.toLowerCase(),
+            ];
+
+            console.log(bullParentsNames);
+
+            let genealogyCount = 2;
+            let hasCommonAncestors = false;
+
+            cowParentsNames.every((cowParentsName) => {
+                const parentNameMatchIndex = bullParentsNames.findIndex(
+                    (parentName) => parentName === cowParentsName
+                );
+
+                if (parentNameMatchIndex !== -1) {
+                    genealogyCount += parentNameMatchIndex;
+                    hasCommonAncestors = true;
+
+                    return false;
+                }
+
+                genealogyCount++;
+
+                return true;
+            });
+
+            const consanguinity = hasCommonAncestors ? 0.5 ** genealogyCount : 0;
+
+            console.log(genealogyCount, hasCommonAncestors);
+
+            return consanguinityOperatorFunction(consanguinity, consanguinityForm.value);
+        });
+
+        return matchingBullsCheckConsanguinity;
     }
 }
 

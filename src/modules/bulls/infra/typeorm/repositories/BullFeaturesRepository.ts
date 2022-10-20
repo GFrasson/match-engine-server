@@ -57,37 +57,25 @@ class BullFeaturesRepository implements IBullFeaturesRepository {
             relations: ["bull"],
         });
 
-        console.log(filteredBullFeatures);
-
         const matchingBulls: Bull[] = [];
 
         const profileItemIdsSet = new Set(forms.map((form) => form.profile_item_id));
         const profileItemIdsArray = Array.from(profileItemIdsSet);
 
-        console.log(profileItemIdsArray);
-
         const bullIds = new Set(filteredBullFeatures.map((bullFeature) => bullFeature.bull_id));
-
-        console.log(bullIds);
 
         bullIds.forEach((bullId) => {
             const currentBullFeatures = filteredBullFeatures.filter(
                 (bullFeature) => bullFeature.bull_id === bullId
             );
 
-            console.log(currentBullFeatures);
-
             const currentProfileItemIds = currentBullFeatures.map(
                 (bullFeature) => bullFeature.profile_item_id
             );
 
-            console.log(currentProfileItemIds);
-
             const match = profileItemIdsArray.every((profileItemId) =>
                 currentProfileItemIds.includes(profileItemId)
             );
-
-            console.log(match);
 
             if (match) {
                 matchingBulls.push(currentBullFeatures[0].bull);
