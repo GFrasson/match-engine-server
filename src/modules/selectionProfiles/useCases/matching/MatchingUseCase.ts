@@ -53,8 +53,6 @@ class MatchingUseCase {
             )
         );
 
-        console.log(matchingBulls);
-
         const operatorsMap = {
             [Operator.LESS_THAN]: (a: number, b: number) => a < b,
             [Operator.LESS_THAN_EQUAL]: (a: number, b: number) => a <= b,
@@ -71,16 +69,12 @@ class MatchingUseCase {
             cow_third_level_parent.toLowerCase(),
         ];
 
-        console.log(cowParentsNames);
-
         const matchingBullsCheckConsanguinity = matchingBulls.filter((bull) => {
             const bullParentsNames = [
-                bull.first_level_parent.toLowerCase(),
-                bull.second_level_parent.toLowerCase(),
-                bull.third_level_parent.toLowerCase(),
+                bull.first_level_parent?.toLowerCase(),
+                bull.second_level_parent?.toLowerCase(),
+                bull.third_level_parent?.toLowerCase(),
             ];
-
-            console.log(bullParentsNames);
 
             let genealogyCount = 2;
             let hasCommonAncestors = false;
@@ -102,9 +96,7 @@ class MatchingUseCase {
                 return true;
             });
 
-            const consanguinity = hasCommonAncestors ? 0.5 ** genealogyCount : 0;
-
-            console.log(genealogyCount, hasCommonAncestors);
+            const consanguinity = hasCommonAncestors ? 0.5 ** genealogyCount * 100 : 0;
 
             return consanguinityOperatorFunction(consanguinity, consanguinityForm.value);
         });
