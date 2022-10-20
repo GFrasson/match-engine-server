@@ -33,7 +33,7 @@ export class CreateForms1666216312481 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: "FKSelectionProfile",
+                        name: "FKFormSelectionProfile",
                         referencedTableName: "selection_profiles",
                         referencedColumnNames: ["id"],
                         columnNames: ["selection_profile_id"],
@@ -41,7 +41,7 @@ export class CreateForms1666216312481 implements MigrationInterface {
                         onUpdate: "RESTRICT",
                     },
                     {
-                        name: "FKProfileItem",
+                        name: "FKFormProfileItem",
                         referencedTableName: "profile_items",
                         referencedColumnNames: ["id"],
                         columnNames: ["profile_item_id"],

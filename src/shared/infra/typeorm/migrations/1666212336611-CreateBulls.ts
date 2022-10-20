@@ -25,46 +25,6 @@ export class CreateBulls1666212336611 implements MigrationInterface {
                         name: "gender",
                     },
                     {
-                        type: "numeric",
-                        name: "ptal",
-                        isNullable: true,
-                    },
-                    {
-                        type: "numeric",
-                        name: "ptat",
-                        isNullable: true,
-                    },
-                    {
-                        type: "numeric",
-                        name: "udder_index",
-                        isNullable: true,
-                    },
-                    {
-                        type: "numeric",
-                        name: "conformation_index",
-                        isNullable: true,
-                    },
-                    {
-                        type: "numeric",
-                        name: "dpr",
-                        isNullable: true,
-                    },
-                    {
-                        type: "numeric",
-                        name: "productive_life",
-                        isNullable: true,
-                    },
-                    {
-                        type: "numeric",
-                        name: "legs_composition",
-                        isNullable: true,
-                    },
-                    {
-                        type: "boolean",
-                        name: "beta_casein",
-                        isNullable: true,
-                    },
-                    {
                         type: "uuid",
                         name: "first_level_parent",
                         isNullable: true,
