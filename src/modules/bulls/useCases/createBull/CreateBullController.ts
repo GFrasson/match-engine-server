@@ -9,9 +9,9 @@ class CreateBullController {
             register_id,
             name,
             gender,
-            first_level_parent_id,
-            second_level_parent_id,
-            third_level_parent_id,
+            first_level_parent,
+            second_level_parent,
+            third_level_parent,
             profile_items,
         } = request.body;
 
@@ -20,9 +20,9 @@ class CreateBullController {
             register_id,
             name,
             gender,
-            first_level_parent_id,
-            second_level_parent_id,
-            third_level_parent_id,
+            first_level_parent,
+            second_level_parent,
+            third_level_parent,
             profile_items,
         });
 

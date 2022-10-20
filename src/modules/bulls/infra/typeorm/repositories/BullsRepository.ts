@@ -25,12 +25,26 @@ class BullsRepository implements IBullsRepository {
             register_id,
             name,
             gender,
-            first_level_parent_id,
-            second_level_parent_id,
-            third_level_parent_id,
+            ...(first_level_parent_id && {
+                first_level_parent_id,
+            }),
+            ...(second_level_parent_id && {
+                second_level_parent_id,
+            }),
+            ...(third_level_parent_id && {
+                third_level_parent_id,
+            }),
         });
 
         await this.repository.save(bull);
+
+        return bull;
+    }
+
+    async findByRegisterId(register_id: string): Promise<Bull> {
+        const bull = await this.repository.findOneBy({
+            register_id,
+        });
 
         return bull;
     }
