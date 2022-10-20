@@ -22,7 +22,7 @@ export class CreateForms1666216312481 implements MigrationInterface {
                         name: "profile_item_id",
                     },
                     {
-                        type: "numeric",
+                        type: "float",
                         name: "value",
                     },
                     {
