@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 import { BullFeature } from "./BullFeature";
@@ -24,18 +24,21 @@ class Bull {
     first_level_parent_id?: string;
 
     @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    @JoinColumn({ name: "first_level_parent_id" })
     first_level_parent?: Bull;
 
     @Column()
     second_level_parent_id?: string;
 
     @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    @JoinColumn({ name: "second_level_parent_id" })
     second_level_parent?: Bull;
 
     @Column()
     third_level_parent_id?: string;
 
     @ManyToOne(() => Bull, (bull) => bull.id, { nullable: true })
+    @JoinColumn({ name: "third_level_parent_id" })
     third_level_parent?: Bull;
 
     constructor() {

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 import { ProfileItem } from "@modules/selectionProfiles/infra/typeorm/entities/ProfileItem";
@@ -14,12 +14,14 @@ class BullFeature {
     bull_id: string;
 
     @ManyToOne(() => Bull, (bull) => bull.bull_features)
+    @JoinColumn({ name: "bull_id" })
     bull: Bull;
 
     @Column()
     profile_item_id: string;
 
     @ManyToOne(() => ProfileItem, (profileItem) => profileItem.bull_features)
+    @JoinColumn({ name: "profile_item_id" })
     profile_item: ProfileItem;
 
     @Column()
