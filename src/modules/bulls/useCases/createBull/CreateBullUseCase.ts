@@ -42,17 +42,15 @@ class CreateBullUseCase {
         let thirdLevelParentBull: Bull = null;
 
         if (first_level_parent) {
-            firstLevelParentBull = await this.bullsRepository.findByRegisterId(first_level_parent);
+            firstLevelParentBull = await this.bullsRepository.findByName(first_level_parent);
         }
 
         if (second_level_parent) {
-            secondLevelParentBull = await this.bullsRepository.findByRegisterId(
-                second_level_parent
-            );
+            secondLevelParentBull = await this.bullsRepository.findByName(second_level_parent);
         }
 
         if (third_level_parent) {
-            thirdLevelParentBull = await this.bullsRepository.findByRegisterId(third_level_parent);
+            thirdLevelParentBull = await this.bullsRepository.findByName(third_level_parent);
         }
 
         const bull = await this.bullsRepository.create({

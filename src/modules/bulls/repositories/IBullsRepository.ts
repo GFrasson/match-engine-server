@@ -4,6 +4,7 @@ import { Bull } from "../infra/typeorm/entities/Bull";
 interface IBullsRepository {
     create(data: ICreateBullDTO): Promise<Bull>;
     findByRegisterId(register_id: string): Promise<Bull>;
+    findByName(name: string): Promise<Bull>;
 }
 
 export { IBullsRepository };

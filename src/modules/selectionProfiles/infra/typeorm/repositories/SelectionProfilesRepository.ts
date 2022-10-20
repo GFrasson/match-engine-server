@@ -22,6 +22,17 @@ class SelectionProfileRepository implements ISelectionProfilesRepository {
 
         return selectionProfile;
     }
+
+    async findById(id: string): Promise<SelectionProfile> {
+        const selectionProfile = await this.repository.findOne({
+            relations: ["forms"],
+            where: {
+                id,
+            },
+        });
+
+        return selectionProfile;
+    }
 }
 
 export { SelectionProfileRepository };

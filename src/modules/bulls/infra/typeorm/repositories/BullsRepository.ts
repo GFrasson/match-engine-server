@@ -48,6 +48,14 @@ class BullsRepository implements IBullsRepository {
 
         return bull;
     }
+
+    async findByName(name: string): Promise<Bull> {
+        const bull = await this.repository.findOneBy({
+            name,
+        });
+
+        return bull;
+    }
 }
 
 export { BullsRepository };
