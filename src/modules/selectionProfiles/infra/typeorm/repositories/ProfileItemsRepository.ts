@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 
-import { ICreateProfileItem } from "@modules/selectionProfiles/dtos/ICreateProfileItem";
+import { ICreateProfileItemDTO } from "@modules/selectionProfiles/dtos/ICreateProfileItemDTO";
 import { IProfileItemsRepository } from "@modules/selectionProfiles/repositories/IProfileItemsRepository";
 import AppDataSource from "@shared/infra/typeorm";
 
@@ -13,12 +13,20 @@ class ProfileItemsRepository implements IProfileItemsRepository {
         this.repository = AppDataSource.getRepository(ProfileItem);
     }
 
-    async create({ attribute }: ICreateProfileItem): Promise<ProfileItem> {
+    async create({ attribute }: ICreateProfileItemDTO): Promise<ProfileItem> {
         const profileItem = this.repository.create({
             attribute,
         });
 
         await this.repository.save(profileItem);
+
+        return profileItem;
+    }
+
+    async findByAttribute(attribute: string): Promise<ProfileItem> {
+        const profileItem = await this.repository.findOneBy({
+            attribute,
+        });
 
         return profileItem;
     }
