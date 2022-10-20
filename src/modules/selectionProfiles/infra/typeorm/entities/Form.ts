@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { v4 as uuidV4 } from "uuid";
 
 import { Operator } from "../enums/Operator";
 import { ProfileItem } from "./ProfileItem";
@@ -28,6 +29,12 @@ class Form {
 
     @Column({ type: "enum", enum: Operator })
     operator: Operator;
+
+    constructor() {
+        if (!this.id) {
+            this.id = uuidV4();
+        }
+    }
 }
 
 export { Form };
