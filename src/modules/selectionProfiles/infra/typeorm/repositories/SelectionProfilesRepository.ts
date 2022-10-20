@@ -13,6 +13,12 @@ class SelectionProfileRepository implements ISelectionProfilesRepository {
         this.repository = AppDataSource.getRepository(SelectionProfile);
     }
 
+    async list(): Promise<SelectionProfile[]> {
+        const selectionProfiles = await this.repository.find();
+
+        return selectionProfiles;
+    }
+
     async create({ name }: ICreateSelectionProfileDTO): Promise<SelectionProfile> {
         const selectionProfile = this.repository.create({
             name,

@@ -3,6 +3,7 @@ import { ICreateSelectionProfileDTO } from "@modules/selectionProfiles/dtos/ICre
 import { SelectionProfile } from "../infra/typeorm/entities/SelectionProfile";
 
 interface ISelectionProfilesRepository {
+    list(): Promise<SelectionProfile[]>;
     create(data: ICreateSelectionProfileDTO): Promise<SelectionProfile>;
     findById(id: string): Promise<SelectionProfile>;
 }
