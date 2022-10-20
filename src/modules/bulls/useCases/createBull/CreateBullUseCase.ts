@@ -37,22 +37,6 @@ class CreateBullUseCase {
         third_level_parent,
         profile_items,
     }: ICreateBullRequest): Promise<Bull> {
-        // let firstLevelParentBull: Bull = null;
-        // let secondLevelParentBull: Bull = null;
-        // let thirdLevelParentBull: Bull = null;
-
-        // if (first_level_parent) {
-        //     firstLevelParentBull = await this.bullsRepository.findByName(first_level_parent);
-        // }
-
-        // if (second_level_parent) {
-        //     secondLevelParentBull = await this.bullsRepository.findByName(second_level_parent);
-        // }
-
-        // if (third_level_parent) {
-        //     thirdLevelParentBull = await this.bullsRepository.findByName(third_level_parent);
-        // }
-
         const bull = await this.bullsRepository.create({
             register_id,
             name,
@@ -60,9 +44,6 @@ class CreateBullUseCase {
             first_level_parent,
             second_level_parent,
             third_level_parent,
-            // first_level_parent_id: firstLevelParentBull ? firstLevelParentBull.id : null,
-            // second_level_parent_id: secondLevelParentBull ? secondLevelParentBull.id : null,
-            // third_level_parent_id: thirdLevelParentBull ? thirdLevelParentBull.id : null,
         });
 
         Object.entries(profile_items).map(async ([attributeName, attributeValue]) => {
